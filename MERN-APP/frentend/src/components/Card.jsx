@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+
 function Card() {
   const API_URL = "http://localhost:4000/api/random";
 
@@ -25,15 +26,19 @@ function Card() {
             clearInterval(intervalId);
             // Trigger API call to obtain a new random number
             fetchData();
+            // Restart the interval
+            updateRandomNumber();
           }
           return newNumber;
         });
       }, 1000);
     };
 
+    // Initial fetch and start the interval
     fetchData();
     updateRandomNumber();
 
+    // Cleanup function to clear the interval when the component unmounts
     return () => clearInterval(intervalId);
   }, []);
 
