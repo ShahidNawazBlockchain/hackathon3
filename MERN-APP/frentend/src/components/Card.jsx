@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-
 function Card() {
   const API_URL = "http://localhost:4000/api/random";
 
   const [randomNumber, setRandomNumber] = useState(null);
 
   useEffect(() => {
-    let intervalId; // Declare intervalId outside the function
+    let intervalId;
 
-    // Function to fetch random number from the backend
     const fetchData = async () => {
       try {
         const response = await axios.get(API_URL);
@@ -20,25 +18,22 @@ function Card() {
     };
 
     const updateRandomNumber = () => {
-      // Update random number every second
       intervalId = setInterval(async () => {
         setRandomNumber((prevNumber) => {
           const newNumber = prevNumber - 1;
-          // If the random number becomes negative, reset interval
           if (newNumber <= 0) {
             clearInterval(intervalId);
-            fetchData(); // Fetch immediately to update the UI consistently
+            // Trigger API call to obtain a new random number
+            fetchData();
           }
           return newNumber;
         });
       }, 1000);
     };
 
-    // Initial fetch and continuous update
     fetchData();
     updateRandomNumber();
 
-    // Cleanup function to clear the interval when the component unmounts
     return () => clearInterval(intervalId);
   }, []);
 
