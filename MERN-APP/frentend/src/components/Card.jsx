@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 function Card() {
-  const API_URL = "http://localhost:4000/api/random";
+  //https://hackathon3-mu.vercel.app/api/random
+  const API_URL = "https://hackathon3-mu.vercel.app/api/random";
 
   const [randomNumber, setRandomNumber] = useState(null);
 
